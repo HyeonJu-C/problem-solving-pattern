@@ -28,6 +28,9 @@ strategy)
 3. 포인터가 이동된 상태에서 두 숫자의 값을 계산한다. 
 4. 2번 과정을 반복한다. 
     - 이 때 포인터를 무한히 이동시키지 않는다.
+    => 나) smallest의 index가 length보다 크지 않고, largest의 index가 0보다 작지 않을 때 까지 반복문 실행
+    => 강의) smallest <= largest인 동안만 반복문 실행
++) 중복되는 숫자가 있을 때 그 부분은 어떻게 처리할 것인지에 대한 고려
 */
 
 function sumZero(array = []) {
@@ -41,28 +44,19 @@ function sumZero(array = []) {
   // 2. smallest + largest
   let smallestIndex = 0
   let largestIndex = sortedArray.length - 1
-  let sum = sortedArray[smallestIndex] + sortedArray[largestIndex]
 
-  if (sum === 0) {
-    return [sortedArray[smallestIndex], sortedArray[largestIndex]]
-  }
+  while (smallestIndex <= largestIndex) {
+    let sum = sortedArray[smallestIndex] + sortedArray[largestIndex]
 
-  if (sum > 0) {
-    do {
+    if (sum === 0) {
+      return [sortedArray[smallestIndex], sortedArray[largestIndex]]
+    }
+    if (sum > 0) {
       largestIndex -= 1
-      sum = sortedArray[smallestIndex] + sortedArray[largestIndex]
-      if (sum === 0)
-        return [sortedArray[smallestIndex], sortedArray[largestIndex]]
-    } while (largestIndex >= 0 && sum === 0)
-  }
-
-  if (sum < 0) {
-    do {
+    }
+    if (sum < 0) {
       smallestIndex += 1
-      sum = sortedArray[smallestIndex] + sortedArray[largestIndex]
-      if (sum === 0)
-        return [sortedArray[smallestIndex], sortedArray[largestIndex]]
-    } while (smallestIndex <= sortedArray.length - 1 && sum === 0)
+    }
   }
 }
 

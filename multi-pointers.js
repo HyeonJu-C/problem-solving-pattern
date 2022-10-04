@@ -18,6 +18,18 @@ strategy)
     - 마지막 아이템이 음수일 때에도 undefined을 return 한다. 
 */
 
+/*
+힌트 => strategy2)
+1. 가장 작은 숫자에서 시작하는 포인터와 큰 숫자에서 시작하는 포인터, 즉 두 가지 포인터를 이용한다. 
+2. smallest + largest의 값을 계산한다. 
+    - 이 값이 0일 때 => 반환  
+    - 음수일 때 => 가장 작은 숫자의 포인터를 + 방향으로 이동
+    - 양수일 때 => 가장 큰 숫자의 포인터를 - 방향으로 이동
+3. 포인터가 이동된 상태에서 두 숫자의 값을 계산한다. 
+4. 2번 과정을 반복한다. 
+    - 이 때 포인터를 무한히 이동시키지 않는다.
+*/
+
 function sumZero(array = []) {
   const copiedArray = [...array]
 
@@ -26,34 +38,31 @@ function sumZero(array = []) {
     .filter((item) => item !== 0)
     .sort((prev, current) => prev - current)
 
-  // 2. early return
-  const smallest = sortedArray[0]
-  const largest = sortedArray.at(-1)
-  if (smallest > 0) return undefined
-  if (largest < 0) return undefined
+  // 2. smallest + largest
+  let smallestIndex = 0
+  let largestIndex = sortedArray.length - 1
+  let sum = sortedArray[smallestIndex] + sortedArray[largestIndex]
 
-  // 3. check if the pair value exists
-  const positiveStartIndex = sortedArray.findIndex((value) => value > 0)
-  const positives = sortedArray.slice(positiveStartIndex)
-  const negatives = sortedArray.slice(0, positiveStartIndex)
-  const smallestPositive = positives[0]
-  const largestPositive = positives.at(-1)
-  const smallestNegative = negatives[0]
-  const largestNegative = negatives.at(-1)
+  if (sum === 0) {
+    return [sortedArray[smallestIndex], sortedArray[largestIndex]]
+  }
 
-  // 3-1. early return
-  if (smallestPositive + smallestNegative > 0) return undefined
-  if (largestPositive + largestNegative < 0) return undefined
+  if (sum > 0) {
+    do {
+      largestIndex -= 1
+      sum = sortedArray[smallestIndex] + sortedArray[largestIndex]
+      if (sum === 0)
+        return [sortedArray[smallestIndex], sortedArray[largestIndex]]
+    } while (largestIndex >= 0 && sum === 0)
+  }
 
-  // 3-2. checking with smaller size array
-  const smallerSizeNumbers =
-    positives.length <= negatives.length ? positives : negatives
-  const largerSizeNumbers =
-    positives.length > negatives.length ? positives : negatives
-
-  for (let i = 0; i <= smallerSizeNumbers.length; i++) {
-    if (largerSizeNumbers.includes(-smallerSizeNumbers[i]))
-      return [smallerSizeNumbers[i], -smallerSizeNumbers[i]]
+  if (sum < 0) {
+    do {
+      smallestIndex += 1
+      sum = sortedArray[smallestIndex] + sortedArray[largestIndex]
+      if (sum === 0)
+        return [sortedArray[smallestIndex], sortedArray[largestIndex]]
+    } while (smallestIndex <= sortedArray.length - 1 && sum === 0)
   }
 }
 

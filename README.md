@@ -4,6 +4,8 @@
 
 ### 1. [frequency counter](https://github.com/HyeonJu-C/problem-solving-pattern/blob/main/frequency-counter.js)
 
-### 2. [frequency counter - challenge](https://github.com/HyeonJu-C/problem-solving-pattern/blob/main/frequency-counter-annagram.js)
+- [annagram](https://github.com/HyeonJu-C/problem-solving-pattern/blob/main/frequency-counter-annagram.js)
 
-### 3. [multi pointers](https://github.com/HyeonJu-C/problem-solving-pattern/blob/main/multi-pointers.js)
+### 2. [multi pointers](https://github.com/HyeonJu-C/problem-solving-pattern/blob/main/multi-pointers.js)
+
+- [count unique values](https://github.com/HyeonJu-C/problem-solving-pattern/blob/main/multi-pointers-count-unique-values.js)

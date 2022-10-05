@@ -9,3 +9,5 @@
 ### 2. [multi pointers](https://github.com/HyeonJu-C/problem-solving-pattern/blob/main/multi-pointers.js)
 
 - [count unique values](https://github.com/HyeonJu-C/problem-solving-pattern/blob/main/multi-pointers-count-unique-values.js)
+
+### 3. [sliding window](https://github.com/HyeonJu-C/problem-solving-pattern/blob/main/sliding-window.js)

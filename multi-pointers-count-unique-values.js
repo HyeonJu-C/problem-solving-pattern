@@ -25,6 +25,15 @@ strategy with pointers)
 7. array의 length가 0이거나 1인 경우에는 pointer를 사용하지 않고 바로 값을 return 한다. 
 */
 
+/*
+힌트)
+1. uniqueValues 변수를 만들지 않는 방법도 있다. 
+2. pointer1이 가리키고 있는 자리가 어디인지 이용하는 것이다. 
+    - pointer1은 처음에 0을 가리키는데, 이는 1개의 고유값을 가지고 있다는 뜻이다. 
+    - pointer2가 pointer1과 다른 값을 가질 때에만, pointer1을 pointer1++로 옮긴다. => ex) pointer1이 1을 가리키면 고유값 2개
+    - pointer2가 마지막 index를 가리킬 때 pointer1이 가리키고 있는 index를 이용하면, 고유값의 총 개수를 알 수 있다.
+*/
+
 function countUniqueValues(array = []) {
   const copiedArray = [...array]
   const sortedArray = copiedArray.sort((a, b) => a - b)
@@ -39,18 +48,19 @@ function countUniqueValues(array = []) {
   }
 
   let pointer1 = 0
-  let pointer2 = sortedArray.findIndex((item) => item !== sortedArray[pointer1])
-  let uniqueValues = [sortedArray[pointer1]]
+  let pointer2 = 1
 
-  while (pointer2 !== -1) {
-    uniqueValues.push(sortedArray[pointer2])
-    pointer1 = pointer2
-    pointer2 = sortedArray.findIndex(
-      (item, index) => index > pointer1 && item !== sortedArray[pointer1],
-    )
+  while (pointer2 <= sortedArray.length - 1) {
+    const isSameValue = sortedArray[pointer1] === sortedArray[pointer2]
+    if (isSameValue) {
+      ++pointer2
+    } else {
+      ++pointer1
+      ++pointer2
+    }
   }
 
-  return uniqueValues.length
+  return pointer1 + 1
 }
 
 console.log(countUniqueValues([])) // 0

@@ -18,26 +18,31 @@ strategy)
 강의 내용)
 1. sliding window 패턴은, 규모가 큰 data set이 있을 때 그 데이터의 하위 집합을 추적하는 데 용이하다.
 2. 배열에 음수 아이템이 있을 때를 고려하여 sum을 0이 아닌 -Infinity로 초기화한다. 
+3. 인자가 ([1, 2, 3, 4, 5], 3)로 전달될 때 1+2+3과 2+3+4... 를 매번 계산해서 비교하지 않는다.
+    - 1+2+3의 값에서 1을 빼고 4를 더한 것은 2+3+4와 같다. 
 */
 
-function maxSubarraySum(array = [], number = 0) {
+function maxSubarraySum2(array = [], number = 0) {
   if (array.length < number) return null
 
+  let subSum = 0
   let max = -Infinity
   let i = 0
-  const lastIndex = array.length - number
 
-  while (i <= lastIndex) {
-    let subsum = 0
-    for (let j = 0; j < number; j++) {
-      subsum += array[i + j]
-    }
-    if (subsum >= max) max = subsum
-    i++
+  while (i < number) {
+    subSum += array[i]
+    ++i
+  }
+  max = subSum
+
+  while (i <= array.length - number + 1) {
+    subSum = subSum - array[i - number] + array[i]
+    max = Math.max(subSum, max)
+    ++i
   }
 
   return max
 }
 
-console.log(maxSubarraySum([1, 2, 5, 2, 8, 1, 5], 2)) // 10
-console.log(maxSubarraySum([1, 2, 5, 2, 8, 1, 5], 4)) // 17
+console.log(maxSubarraySum2([1, 2, 5, 9], 2)) // 14
+console.log(maxSubarraySum2([5, 8, 1, 5, 2], 4)) // 19

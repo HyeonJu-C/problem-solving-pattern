@@ -11,3 +11,5 @@
 - [count unique values](https://github.com/HyeonJu-C/problem-solving-pattern/blob/main/multi-pointers-count-unique-values.js)
 
 ### 3. [sliding window](https://github.com/HyeonJu-C/problem-solving-pattern/blob/main/sliding-window.js)
+
+### 4. [divide conquer](https://github.com/HyeonJu-C/problem-solving-pattern/blob/main/divide-conquer.js)
